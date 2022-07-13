@@ -3,43 +3,39 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("===ÇÁ·Î±×·¥½ÃÀÛ====");
+		System.out.println("===í”„ë¡œê·¸ë¨ì‹œì‘====");
+
 		Scanner sc = new Scanner(System.in);
-		
-		while(true) {
-			System.out.println("¸í·É¾î)");
-			String command = sc.next();
-			if(command.equals("exit")) {
+
+		int num = 0;
+		while (true) {//"ëª…ë ¹ì–´ ì‹¤í–‰ë¬¸ì„ ë¬´í•œë°˜ë³µì‹œí‚¨ë‹¤.
+			System.out.print("ëª…ë ¹ì–´)");
+			String command = sc.nextLine().trim();
+			if(command.length()==0) {
+				continue; //ëª…ë ¹ì–´ ì…ë ¥ì„ ì•ˆí•œ ê²½ìš°ì˜ ìˆ˜ë¥¼ ë§Œë“¤ì–´ì¤˜ì•¼ "ì¡´ì¬í•˜ì§€ì•ŠëŠ”~"ì´ ì‹¤í–‰ë˜ì§€ì•ŠëŠ”ë‹¤.**continueë¡œ ë§¨ì²˜ìŒìœ¼ë¡œ ëŒì•„ê°€ê²Œí•¨
+			}
+
+			if (command.equals("exit")) {
 				break;
+			} 
+			else if (command.equals("article list")) {
+				System.out.println("ê²Œì‹œê¸€ì´ ì—†ìŠµë‹ˆë‹¤.");
+			} 
+			else if (command.equals("article write")) {
+				int id = num+1;
+				num++;//ë°˜ë³µë¬¸ ë°–ì— ì„ ì–¸í–ˆê¸°ë•Œë¬¸ì— numê°’ì€ ê³„ì† ì¦ê°€ê°’ì´ëœë‹¤.
+				String article = sc.nextLine();
+				String body = sc.nextLine();
+				System.out.printf("ì œëª©:%s\n", article);
+				System.out.printf("ë³¸ë¬¸:%s\n", body);
+				System.out.printf("%dë²ˆê¸€ì´ìƒì„±ë¬ìŠµë‹ˆë‹¤.\n", id);
 			}
 
 			else {
-				System.out.println("Á¸ÀçÇÏÁö¾Ê½À´Ï´Ù.");				
+				System.out.println("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ëª…ë ¹ì–´ì…ë‹ˆë‹¤.");
 			}
-			}
-		
-			if(command.equals("article write")) {
-				String text = sc.next();
-				String body = sc.next();
-				System.out.printf("Á¦¸ñ:%s",text);
-				System.out.printf("Á¦¸ñ:%s",body);
-				System.out.println("1¹ø±ÛÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.");
-			}
-			command = sc.next();
-			if(command.equals("article write")) {
-				String text = sc.next();
-				String body = sc.next();
-				System.out.printf("Á¦¸ñ:%s",text);
-				System.out.printf("Á¦¸ñ:%s",body);
-				System.out.println("2¹ø±ÛÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.");
-			}
-			
-			else {
-				System.out.println("Àß¸øÀÔ·Â‰ç½À´Ï´Ù");
-			}
-			command = sc.next();
 		}
-		System.out.println("===ÇÁ·Î±×·¥Á¾·á=====");
+		System.out.println("===í”„ë¡œê·¸ë¨ì¢…ë£Œ=====");
 		
 	}
 }
