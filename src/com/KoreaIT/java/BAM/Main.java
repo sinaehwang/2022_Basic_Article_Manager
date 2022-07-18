@@ -4,13 +4,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-	public static void main(String[] args) {
+	
+	private	static List<Article> articles; //메인메소드와 makeTestDate 메소드가 접근할수있도록 전역으로 빼줌
+	
+	static {//static은 static끼리만 공유가능함 
+		articles = new ArrayList<>();
+	}
+	
+	public static void main(String[] args) {//메인 클래스의 메인메소드부분
 		System.out.println("==프로그램 시작==");
+		
+		makeTestDate();
 
 		Scanner sc = new Scanner(System.in);
 		int lastArticleId = 0;
 
-		List<Article> articles = new ArrayList<>();
 		
 		while (true) {
 
@@ -27,8 +35,8 @@ public class Main {
 
 			if (cmd.equals("article write")) {
 				
-				int id = lastArticleId + 1;
-				lastArticleId = id;
+				int id = articles.size() + 1; //테스트 데이터 실행후 write 실행을 하게되면 1번글로 출력됨(중복키x)=>id를 articles+1로 수정을 하면 오류해결
+				//lastArticleId = id;
 				String regDate = Util.getNowDateStr();
 				System.out.printf("제목 : ");
 				String title = sc.nextLine();
@@ -46,7 +54,7 @@ public class Main {
 					continue;
 				}
 				
-				System.out.println("번호    |   제목  |   날짜   |	조회");
+				System.out.println("번호  |   제목  |      날짜      |조회");
 				
 				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
@@ -163,6 +171,14 @@ public class Main {
 		sc.close();
 	}
 
+	private static void makeTestDate() {//메인 클래스의 makeTestDate 메소드 부분
+		System.out.println("테스트를 위한 데이터를 생성합니다.");
+		articles.add(new Article(1, "제목1","내용1", Util.getNowDateStr(), 1));
+		articles.add(new Article(2, "제목2","내용2", Util.getNowDateStr(), 2));
+		articles.add(new Article(3, "제목3","내용3", Util.getNowDateStr(), 3));
+		
+	}
+
 }
 
 class Article {
@@ -173,12 +189,21 @@ class Article {
 	String regDate;
 	int hit;
 
-	Article(int id, String title, String body,String regDate) {
+	Article(int id, String title, String body,String regDate) {//매개변수가 4개일때 생성자와
+		this(id, title, body, regDate, 0);//밑에와 상동한 결과값을 가져올수있다.
+//		this.id = id;
+//		this.title = title;
+//		this.body = body;
+//		this.regDate = regDate;
+//		this.hit =0;
+	}
+	
+	Article(int id, String title, String body,String regDate,int hit) {//매개변수가 5개일때 생성자를 구분하면 각각에 맞게 호출가능
 		this.id = id;
 		this.title = title;
 		this.body = body;
 		this.regDate = regDate;
-		this.hit =0;
+		this.hit =hit;
 	}
 	public void incresehit() {
 		hit++;
