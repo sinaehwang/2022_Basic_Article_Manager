@@ -48,19 +48,19 @@ public class App {
 					System.out.printf("로그인 아이디 : ");
 					loginId = sc.nextLine();
 
-					for (Member member : members) {
-						if (loginId.equals(member.loginId)) {
-							System.out.println("아이디가 중복됬습니다.");
-							continue;
-						}
-						break;
+					if (isJoinableLoginId(loginId) == false) {
+						System.out.printf("%s는 이미사용중인아이디입니다.\n", loginId);
+						continue;
 					}
 
-//				if(isJoinableLoginId(loginId)==false) {
-//					System.out.println("이미사용중인아이디입니다.");
-//					continue;
-//				}
-				break;
+//					for (Member member : members) {
+//						if (loginId.equals(member.loginId)) {
+//							System.out.println("아이디가 중복됬습니다.");
+//							continue;
+//						}
+//						break;
+//					}
+					break;
 				}
 
 				String loginPw = null;
@@ -203,31 +203,31 @@ public class App {
 		sc.close();
 	}
 
-//	private boolean isJoinableLoginId(String loginId) {
-//		int index = getMemberIndexByLoginId(loginId);
-//		if(index==-1) {
-//			return true;
-//		}
-//		return false;
-//	}
-//
-//	private int getMemberIndexByLoginId(String loginId) {
-//		int i = 0;
-//		for(Member member : members) {
-//			if(member.loginId.equals(loginId)) {
-//				return i;
-//			}
-//			i++;
-//		}
-//		
-//		return -1;
-//	}
+	private boolean isJoinableLoginId(String loginId) {
+		int index = getMemberIndexByLoginId(loginId);
+		if (index == -1) {//리스트에 중복 아이디가 없다는뜻
+			return true;//따라서 리컨값을 true로 설정
+		}
+		return false;
+	}
+
+	private int getMemberIndexByLoginId(String loginId) {
+		int i = 0;
+		for (Member member : members) {
+			if (member.loginId.equals(loginId)) {
+				return i;
+			}
+			i++;
+		}
+
+		return -1;
+	}
 
 	private int getArticleIndexById(int id) {
 		int i = 0;
 		for (Article article : articles) {
 
-			if (article.id == id) {
+			if (article.id==id) {
 				return i;
 			}
 			i++;
