@@ -1,21 +1,76 @@
 package com.KoreaIT.java.BAM.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.KoreaIT.java.BAM.dto.Member;
 import com.KoreaIT.java.BAM.util.Util;
 
-public class MemberController {
+public class MemberController extends Controller {
 	private Scanner sc;
 	private List<Member> members;
+	private String cmd;
+	private String actionMethodName;
+	private Member loginMember;
+	
 
-	public MemberController(Scanner sc, List<Member> members) {
+	public MemberController(Scanner sc) {
 		this.sc = sc;
-		this.members = members;
+
+		members = new ArrayList<>();
 	}
 
-	public void doJoin() {
+	public void doAction(String cmd, String actionMethodName) {
+		this.cmd = cmd;
+		this.actionMethodName = actionMethodName;
+
+		switch (actionMethodName) {
+		case "join":
+			doJoin();
+			break;
+		case "login":
+			dologin();
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어입니다");
+			break;
+		}
+	}
+
+	private void dologin() {
+		String logId;
+		String logPw;
+		System.out.printf("로그인 아이디 : ");
+		logId = sc.nextLine();
+		System.out.printf("로그인 비밀번호 확인 : ");
+		logPw = sc.nextLine();
+		
+		Member member = getMemberByLoginId(logId);
+		
+		if(member==null) {
+			System.out.println("일치하는 회원이 없습니다.");
+			return;
+		}
+		if(member.loginPw.equals(logPw)==false) 
+		{
+			System.out.println("비밀번호를 재확인하세요");
+		}
+		loginMember = member;
+		System.out.printf("로그인 성공:%s님환영합니다",member.loginId);
+	}
+
+	private Member getMemberByLoginId(String logId) {
+		int index = getMemberIndexByLoginId(logId);
+
+		if (index == -1) {
+			return null;
+		}
+
+		return members.get(index);
+	}
+
+	private void doJoin() {
 		int id = members.size() + 1;
 		String regDate = Util.getNowDateStr();
 		String loginId = null;
