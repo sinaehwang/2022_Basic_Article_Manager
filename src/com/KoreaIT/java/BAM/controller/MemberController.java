@@ -13,7 +13,6 @@ public class MemberController extends Controller {
 	private List<Member> members;
 	private String cmd;
 	private String actionMethodName;
-	
 
 	public MemberController(Scanner sc) {
 		this.sc = sc;
@@ -144,8 +143,6 @@ public class MemberController extends Controller {
 
 		return members.get(index);
 	}
-
-
 
 	private boolean isJoinableLoginId(String loginId) {
 		int index = getMemberIndexByLoginId(loginId);
