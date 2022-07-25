@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.KoreaIT.java.BAM.dto.Article;
+import com.KoreaIT.java.BAM.dto.Member;
 import com.KoreaIT.java.BAM.util.Util;
 
 public class ArticleController extends Controller {
@@ -28,6 +29,10 @@ public class ArticleController extends Controller {
 			showList();
 			break;
 		case "write":
+			if(isLogined()==false) {//isLogined()==false 미로그인상태
+				System.out.println("로그인상태가아닙니다.");
+			};
+			
 			doWrite();
 			break;
 		case "detail":
@@ -46,6 +51,9 @@ public class ArticleController extends Controller {
 	}
 
 	private void doWrite() {
+		if (isLogined()) {
+			
+		}
 		int id = articles.size() + 1;
 		String regDate = Util.getNowDateStr();
 		System.out.printf("제목 : ");
