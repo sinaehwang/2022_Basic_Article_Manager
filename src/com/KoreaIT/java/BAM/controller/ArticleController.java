@@ -28,10 +28,6 @@ public class ArticleController extends Controller {
 			showList();
 			break;
 		case "write":
-			if (isLogined() == false) {
-				System.out.println("로그인 후 이용해주세요");
-				break;
-			}
 			doWrite();
 			break;
 		case "detail":
@@ -92,7 +88,7 @@ public class ArticleController extends Controller {
 			}
 		}
 
-		System.out.printf("번호    |   제목     |     %7s        |    작성자  |   조회\n", "날짜");
+		System.out.printf("번호     |   제목     |     %7s         |    작성자    |   조회\n", "날짜");
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
 
